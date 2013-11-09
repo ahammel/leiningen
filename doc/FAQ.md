@@ -57,6 +57,14 @@
   version ranges as they cause all kinds of problems and exhibit
   unintuitive behaviour.
 
+**Q:** I have two dependencies, X and Y, which depends on Z. How is the version
+of Z decided?  
+**A:** By which one comes first in the `:dependency` vector. If X depends on
+`[Z "1"]` and Y depends on `[Z "2"]`, then version 1 of Z will be chosen if X is
+before Y in the dependency vector, and version 2 will be chosen if Y is before
+X. This only applies to soft dependencies, and `lein deps :tree` will warn if
+the latest version is not chosen.
+
 **Q:** I'm behind an HTTP proxy; how can I fetch my dependencies?  
 **A:** Set the `$http_proxy` environment variable in Leiningen 2.x. You can also
   set `$http_no_proxy` for a list of hosts that should be reached directly, bypassing
